@@ -34,32 +34,32 @@ Requirements:
 
 ##### Reference files:
 
-[Hg38 reference fasta](ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.fasta.gz)
+Hg38 reference fasta (available from the Broad Institute [resource bundle](https://software.broadinstitute.org/gatk/download/bundle))
 
-[Hg38 DBSNP VCF](ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/dbsnp_138.hg38.vcf.gz)
+Hg38 DBSNP VCF (available from the Broad Institute [resource bundle](https://software.broadinstitute.org/gatk/download/bundle))
 
-[VEP GRCh38 cache](ftp://ftp.ensembl.org/pub/release-93/variation/VEP/homo_sapiens_vep_93_GRCh38.tar.gz)
+VEP GRCh38 cache (available from [Ensembl](https://uswest.ensembl.org/info/docs/tools/vep/script/vep_cache.html#cache))
 
 [Downstream VEP plugin](https://github.com/Ensembl/VEP_plugins/blob/release/93/Downstream.pm)
 
 
 ##### Data files:
 
-We used WES paired-end fastq files from Bassani-Sternberg et al. [1] for benchmarking. The files are available at the European Genome-phenome Archive (EGA) under accession number EGAS00001002050. We used matched tumor and normal samples from patients Mel5, Mel8, and Mel12.
+We used WES paired-end fastq files from Bassani-Sternberg et al. [1] for benchmarking. The files are available at the [European Genome-phenome Archive](https://www.ebi.ac.uk/ega/home) (EGA) under accession number EGAS00001002050. We used matched tumor and normal samples from patients Mel5, Mel8, and Mel12.
 
 
 Before you start:
 -----
 
-Create a python3 virtual environment w/ conda called benchmark\_env:
+1) Create a python3 virtual environment w/ conda called benchmark\_env:
 
 ```conda create -n benchmark_env python=3.4```
 
-Move the VEP cache data to a subdirectory called 'cache' in your VEP main directory
+2) Move the VEP cache data to a subdirectory called 'cache' in your VEP main directory
 
-Copy the 'chr_synonyms.txt' file in the VEP cache data to your VEP main directory
+3) Copy the 'chr_synonyms.txt' file in the VEP cache data to your VEP main directory
 
-Move the VEP Downstream plugin to a subdirectory called 'plugins' in your VEP main directory
+4) Move the VEP Downstream plugin to a subdirectory called 'plugins' in your VEP main directory
 
 
 Running benchmarking
@@ -68,7 +68,7 @@ Running benchmarking
 We ran our benchmarking on an exclusive node of our institution's computer cluster, using the node's first four processors for multithreading (when possible). Each script benchmarks a different step in the neoepitope calling pipeline, and produces relevant output files from these steps along with files summarizing the CPU information and run time information (we used real time in our assessments). As an example, below are the commands to run the benchmarking for patient Mel5 from within the repository:
 
 
-1) Benchmark BWA performance for tumor and normal samples: 
+**1) Benchmark BWA performance for tumor and normal samples:**
 
 ```taskset -c 0,1,2,3 ./benchmark_bwa.sh HOME_DIRECTORY Mel5_tumor TUMOR_FASTQ1 TUMOR_FASTQ2 REFERENCE_FASTA BWA SAMTOOLS```
 
@@ -93,7 +93,7 @@ CPU info is output in Mel5\_tumor.bwa.cpu\_data and Mel5\_normal.bwa.cpu\_data
 Run time info is output in Mel5\_tumor.bwa.time_log and Mel5\_normal.bwa.time\_log
 
 
-2) Benchmark BAM processing for tumor and normal samples
+**2) Benchmark BAM processing for tumor and normal samples**
 
 ```taskset -c 0,1,2,3 ./benchmark_markduplicates.sh HOME_DIRECTORY Mel5_tumor GATK```
 
@@ -122,7 +122,7 @@ CPU info is output in Mel5\_tumor.markduplicates.cpu\_data, Mel5\_normal.markdup
 Run time info is output in Mel5\_tumor.markduplicates.time\_log, Mel5\_normal.markduplicates.time\_log, Mel5\_tumor.baserecalibration.time\_log, and Mel5\_normal.baserecalibration.time\_log
 
 
-3) Benchmark somatic variant calling
+**3) Benchmark somatic variant calling**
 
 ```taskset -c 0,1,2,3 ./benchmark_mutect.sh HOME_DIRECTORY Mel5_tumor Mel5_normal REFERENCE_FASTA DBSNP GATK```
 
@@ -145,7 +145,7 @@ CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.mutect.cpu\_data, Mel5\_tumor
 Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.mutect.time\_log, Mel5\_tumor\_v\_Mel5\_normal.mutect.time\_log, Mel5\_tumor\_v\_Mel5\_normal.filtermutect.time\_log, and Mel5\_tumor\_v\_Mel5\_normal.filtermutect.time\_log
 
 
-4) Benchmark germline variant calling
+**4) Benchmark germline variant calling**
 
 ```taskset -c 0,1,2,3 ./benchmark_haplotypecaller.sh HOME_DIRECTORY Mel5_normal REFERENCE_FASTA DBSNP GATK```
 
@@ -166,7 +166,7 @@ CPU info is output in Mel5\_normal.haplotypecaller.cpu\_data
 Run time info is output in Mel5\_normal.haplotypecaller.time\_log
 
 
-5) Benchmark haplotype phasing
+**5) Benchmark haplotype phasing**
 
 ```taskset -c 0,1,2,3 ./benchmark_hapcut2.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HAPCUT2```
 
@@ -185,7 +185,7 @@ CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.hapcut2.cpu\_data and Mel5\_t
 Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.hapcut2.time\_log and Mel5\_tumor\_v\_Mel5\_normal.hapcut2.time\_log
 
 
-6) Benchmark HLA typing
+**6) Benchmark HLA typing**
 
 ```taskset -c 0,1,2,3 ./benchmark_optitype.sh HOME_DIRECTORY Mel5_tumor TUMOR_FASTQ1 TUMOR_FASTQ2 OPTITYPE CONFIG```
 
@@ -206,7 +206,7 @@ CPU info is output in Mel5\_tumor.optitype.cpu\_data
 Run time info is output in Mel5\_tumor.optitype.time\_log
 
 
-7) Benchmark pVACseq
+**7) Benchmark pVACseq**
 
 ```taskset -c 0,1,2,3 ./benchmark_vep.sh HOME_DIRECTORY Mel5_tumor Mel5_normal VEP_DIRECTORY```
 
@@ -227,7 +227,7 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.vep.time\_log and Mel5\_
 pVACseq neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.final.tsv
 
 
-8) Benchmark MuPeXI
+**8) Benchmark MuPeXI**
 
 ```taskset -c 0,1,2,3 ./benchmark_mupexi.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A01:01,HLA-B08:01,HLA-C07:01 MUPEXI```
 
@@ -246,7 +246,7 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.mupexi.time\_log
 MuPeXI neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.mupexi
 
 
-9) Benchmark neoepiscope
+**9) Benchmark neoepiscope**
 
 ```taskset -c 0,1,2,3 ./benchmark_neoepiscope.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A*01:01,HLA-B*08:01,HLA-C*07:01```
 
@@ -266,10 +266,11 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.time\_log, M
 
 neoepiscope neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.out, Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.tumor.out and Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.comprehensive.out
 
+**Post-processing**
 
-The same processes can be run for patients Mel8 and Mel12 by replacing 'Mel5' with 'Mel8' or 'Mel12' in the commands.
+The same commands above can be run for patients Mel8 and Mel12 by replacing 'Mel5' with 'Mel8' or 'Mel12' in the commands.
 
-To compile which epitope sequences were enumerated by each caller, you can run our python script to parse the output of each tool for each patient.
+To compile which epitope sequences were enumerated by each caller and for each patient, you can run our python script to parse the output of each tool for each patient.
 
 ```python epitope_comparison.py -d HOME_DIRECTORY```
 
@@ -279,7 +280,7 @@ HOME\_DIRECTORY is the path to this repository
 
 _OUTPUTS:_
 
-Mel5.peptide\_overlap.out, Mel8.peptide\_overlap.out, Mel12.peptide\_overlap.out and combined.peptide\_overlap.out are tsv files summarizing the neoepitopes predicted by all tools and which tools predicted them (on a per-patient basis, or for all patients combined).
+Mel5.peptide\_overlap.out, Mel8.peptide\_overlap.out, Mel12.peptide\_overlap.out and combined.peptide\_overlap.out are tab-delimited text files summarizing the neoepitopes predicted by all tools and which tools predicted them (on a per-patient basis, or for all patients combined).
 
 
 
