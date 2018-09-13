@@ -3,6 +3,7 @@ neoepiscope benchmarking
 
 This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/ohsu-comp-bio/neoepiscope) as described in our manuscript [1].
 
+----
 
 Requirements:
 -----
@@ -47,6 +48,7 @@ VEP GRCh38 cache (available from [Ensembl](https://uswest.ensembl.org/info/docs/
 
 We used WES paired-end fastq files from Bassani-Sternberg et al. [1] for benchmarking. The files are available at the [European Genome-phenome Archive](https://www.ebi.ac.uk/ega/home) (EGA) under accession number EGAS00001002050. We used matched tumor and normal samples from patients Mel5, Mel8, and Mel12.
 
+----
 
 Before you start:
 -----
@@ -61,6 +63,7 @@ Before you start:
 
 4) Move the VEP Downstream plugin to a subdirectory called 'plugins' in your VEP main directory
 
+----
 
 Running benchmarking
 -----
@@ -92,6 +95,7 @@ CPU info is output in Mel5\_tumor.bwa.cpu\_data and Mel5\_normal.bwa.cpu\_data
 
 Run time info is output in Mel5\_tumor.bwa.time_log and Mel5\_normal.bwa.time\_log
 
+----
 
 **2) Benchmark BAM processing for tumor and normal samples**
 
@@ -121,6 +125,7 @@ CPU info is output in Mel5\_tumor.markduplicates.cpu\_data, Mel5\_normal.markdup
 
 Run time info is output in Mel5\_tumor.markduplicates.time\_log, Mel5\_normal.markduplicates.time\_log, Mel5\_tumor.baserecalibration.time\_log, and Mel5\_normal.baserecalibration.time\_log
 
+----
 
 **3) Benchmark somatic variant calling**
 
@@ -144,6 +149,7 @@ CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.mutect.cpu\_data, Mel5\_tumor
 
 Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.mutect.time\_log, Mel5\_tumor\_v\_Mel5\_normal.mutect.time\_log, Mel5\_tumor\_v\_Mel5\_normal.filtermutect.time\_log, and Mel5\_tumor\_v\_Mel5\_normal.filtermutect.time\_log
 
+----
 
 **4) Benchmark germline variant calling**
 
@@ -165,6 +171,7 @@ CPU info is output in Mel5\_normal.haplotypecaller.cpu\_data
 
 Run time info is output in Mel5\_normal.haplotypecaller.time\_log
 
+----
 
 **5) Benchmark haplotype phasing**
 
@@ -184,6 +191,7 @@ CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.hapcut2.cpu\_data and Mel5\_t
 
 Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.hapcut2.time\_log and Mel5\_tumor\_v\_Mel5\_normal.hapcut2.time\_log
 
+----
 
 **6) Benchmark HLA typing**
 
@@ -205,6 +213,7 @@ CPU info is output in Mel5\_tumor.optitype.cpu\_data
 
 Run time info is output in Mel5\_tumor.optitype.time\_log
 
+----
 
 **7) Benchmark pVACseq**
 
@@ -226,6 +235,7 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.vep.time\_log and Mel5\_
 
 pVACseq neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.final.tsv
 
+----
 
 **8) Benchmark MuPeXI**
 
@@ -245,6 +255,7 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.mupexi.time\_log
 
 MuPeXI neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.mupexi
 
+----
 
 **9) Benchmark neoepiscope**
 
@@ -266,6 +277,8 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.time\_log, M
 
 neoepiscope neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.out, Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.tumor.out and Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.comprehensive.out
 
+----
+
 **Post-processing**
 
 The same commands above can be run for patients Mel8 and Mel12 by replacing 'Mel5' with 'Mel8' or 'Mel12' in the commands.
@@ -282,7 +295,7 @@ _OUTPUTS:_
 
 Mel5.peptide\_overlap.out, Mel8.peptide\_overlap.out, Mel12.peptide\_overlap.out and combined.peptide\_overlap.out are tab-delimited text files summarizing the neoepitopes predicted by all tools and which tools predicted them (on a per-patient basis, or for all patients combined).
 
-
+----
 
 References:
 -----
