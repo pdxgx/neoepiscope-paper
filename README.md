@@ -1,7 +1,7 @@
-neoepiscope benchmarking
+Reproducing results from neoepiscope paper
 -----
 
-This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/ohsu-comp-bio/neoepiscope) as described in our manuscript [1].
+This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/ohsu-comp-bio/neoepiscope) as described in our [manuscript]().
 
 ----
 
@@ -46,7 +46,7 @@ VEP GRCh38 cache (available from [Ensembl](https://uswest.ensembl.org/info/docs/
 
 ##### Data files:
 
-We used WES paired-end fastq files from Bassani-Sternberg et al. [1] for benchmarking. The files are available at the [European Genome-phenome Archive](https://www.ebi.ac.uk/ega/home) (EGA) under accession number EGAS00001002050. We used matched tumor and normal samples from patients Mel5, Mel8, and Mel12.
+We used WES paired-end fastq files from Bassani-Sternberg et al. [1] for benchmarking. The files are available at the [European Genome-phenome Archive](https://www.ebi.ac.uk/ega/home) (EGA) under accession number [EGAS00001002050](https://www.ebi.ac.uk/ega/studies/EGAS00001002050). We used matched tumor and normal samples from patients Mel5, Mel8, and Mel12.
 
 ----
 
@@ -65,7 +65,7 @@ Before you start:
 
 ----
 
-Running benchmarking
+Running benchmarking scripts (Benchmarking section of MATERIALS AND METHODS)
 -----
 
 We ran our benchmarking on an exclusive node of our institution's computer cluster, using the node's first four processors for multithreading (when possible). Each script benchmarks a different step in the neoepitope calling pipeline, and produces relevant output files from these steps along with files summarizing the CPU information and run time information (we used real time in our assessments). As an example, below are the commands to run the benchmarking for patient Mel5 from within the repository:
