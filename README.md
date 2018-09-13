@@ -7,7 +7,8 @@ This repository holds scripts and instructions for reproducing the benchmarking 
 Requirements:
 -----
 
-#####Software:
+##### Software:
+
 [Anaconda2](https://www.anaconda.com/download/)
 
 [BWA v0.7.9a-r786](https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.9a.tar.bz2/download)
@@ -31,7 +32,7 @@ Requirements:
 [Variant Effect Predictor (VEP) v91.3](https://github.com/Ensembl/ensembl-vep)
 
 
-#####Reference files:
+##### Reference files:
 
 [Hg38 reference fasta](ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.fasta.gz)
 
@@ -42,7 +43,8 @@ Requirements:
 [Downstream VEP plugin](https://github.com/Ensembl/VEP_plugins/blob/release/93/Downstream.pm)
 
 
-#####Data files:
+##### Data files:
+
 We used WES paired-end fastq files from Bassani-Sternberg et al. [1] for benchmarking. The files are available at the European Genome-phenome Archive (EGA) under accession number EGAS00001002050. We used matched tumor and normal samples from patients Mel5, Mel8, and Mel12.
 
 
@@ -72,7 +74,7 @@ We ran our benchmarking on an exclusive node of our institution's computer clust
 
 ```taskset -c 0,1,2,3 ./benchmark_bwa.sh HOME_DIRECTORY Mel5_normal NORMAL_FASTQ1 NORMAL_FASTQ2 REFERENCE_FASTA BWA SAMTOOLS```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
@@ -84,7 +86,7 @@ BWA is the path to your BWA executable
 
 SAMTOOLS is the path to your samtools executable
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor.bwa.cpu\_data and Mel5\_normal.bwa.cpu\_data 
 
@@ -101,7 +103,7 @@ Run time info is output in Mel5\_tumor.bwa.time_log and Mel5\_normal.bwa.time\_l
 
 ```taskset -c 0,1,2,3 ./benchmark_baserecalibration.sh HOME_DIRECTORY Mel5_normal REFERENCE_FASTA DBSNP GATK PICARD```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
@@ -113,7 +115,7 @@ GATK is the path to your GATK jar file
 
 PICARD is the path to your PICARD executable
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor.markduplicates.cpu\_data, Mel5\_normal.markduplicates.cpu\_data, Mel5\_tumor.baserecalibration.cpu\_data, and Mel5\_normal.baserecalibration.cpu\_data
 
@@ -126,7 +128,7 @@ Run time info is output in Mel5\_tumor.markduplicates.time\_log, Mel5\_normal.ma
 
 ```taskset -c 0,1,2,3 ./benchmark_filter_mutect.sh HOME_DIRECTORY Mel5_tumor Mel5_normal```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
@@ -136,7 +138,7 @@ DBSNP is the path to your DBSNP VCF
 
 GATK is the path to your GATK jar file
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.mutect.cpu\_data, Mel5\_tumor\_v\_Mel5\_normal.mutect.cpu\_data, Mel5\_tumor\_v\_Mel5\_normal.filtermutect.cpu\_data and Mel5\_tumor\_v\_Mel5\_normal.filtermutect.cpu\_data, 
 
@@ -147,7 +149,7 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.mutect.time\_log, Mel5\_
 
 ```taskset -c 0,1,2,3 ./benchmark_haplotypecaller.sh HOME_DIRECTORY Mel5_normal REFERENCE_FASTA DBSNP GATK```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
@@ -157,7 +159,7 @@ DBSNP is the path to your DBSNP VCF
 
 GATK is the path to your GATK jar file
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_normal.haplotypecaller.cpu\_data
 
@@ -170,13 +172,13 @@ Run time info is output in Mel5\_normal.haplotypecaller.time\_log
 
 ```taskset -c 0,1,2,3 ./benchmark_nogermline_hapcut2.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HAPCUT2```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
 HAPCUT2 is the path to your HapCUT2 build directory
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.hapcut2.cpu\_data and Mel5\_tumor\_v\_Mel5\_normal.hapcut2\_tumor.cpu\_data
 
@@ -187,7 +189,7 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.hapcut2.time\_log and Me
 
 ```taskset -c 0,1,2,3 ./benchmark_optitype.sh HOME_DIRECTORY Mel5_tumor TUMOR_FASTQ1 TUMOR_FASTQ2 OPTITYPE CONFIG```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
@@ -197,7 +199,7 @@ OPTITYPE is the path to your Optitype python script
 
 CONFIG is the path to your Optitype config file
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor.optitype.cpu\_data
 
@@ -210,13 +212,13 @@ Run time info is output in Mel5\_tumor.optitype.time\_log
 
 ```taskset -c 0,1,2,3 ./benchmark_pvacseq.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A*01:01,HLA-B*08:01,HLA-C*07:01```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
 VEP\_DIRECTORY is the path to your VEP directory
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.vep.cpu\_data and Mel5\_tumor\_v\_Mel5\_normal.pvacseq.cpu\_data
 
@@ -229,13 +231,13 @@ pVACseq neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.final.tsv
 
 ```taskset -c 0,1,2,3 ./benchmark_mupexi.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A01:01,HLA-B08:01,HLA-C07:01 MUPEXI```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
 MUPEXI is the path to your MuPeXI python script
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.mupexi.cpu\_data
 
@@ -252,11 +254,11 @@ MuPeXI neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.mupexi
 
 ```taskset -c 0,1,2,3 ./benchmark_comprehensive_neoepiscope.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A*01:01,HLA-B*08:01,HLA-C*07:01```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
-OUTPUTS:
+_OUTPUTS:_
 
 CPU info is output in Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.cpu\_data, Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.tumor.cpu\_data and Mel5\_tumor\_v\_Mel5\_normal.neoepiscope.comprehensive.cpu\_data
 
@@ -271,11 +273,11 @@ To compile which epitope sequences were enumerated by each caller, you can run o
 
 ```python epitope_comparison.py -d HOME_DIRECTORY```
 
-INPUTS:
+_INPUTS:_
 
 HOME\_DIRECTORY is the path to this repository
 
-OUTPUTS:
+_OUTPUTS:_
 
 Mel5.peptide\_overlap.out, Mel8.peptide\_overlap.out, Mel12.peptide\_overlap.out and combined.peptide\_overlap.out are tsv files summarizing the neoepitopes predicted by all tools and which tools predicted them (on a per-patient basis, or for all patients combined).
 
