@@ -426,6 +426,30 @@ VariantFiltration was run as below:
 
 Only variants passing all filters were retained for downstream analyses.
 
+**Haplotype phasing**
+
+Before performing haplotype phasing, we swapped the sample columns in our consensus somatic variants VCF and merged our filtered germline and consensus somatic variants using [`neoepiscope`](https://github.com/pdxgx/neoepiscope):
+
+```neoepiscope swap -i SOMATIC_VCF -o SWAPPED_SOMATIC_VCF```
+
+```neoepiscope merge -g GERMLINE_VCF -s SWAPPED_SOMATIC_VCF -o MERGED_VCF```
+
+Then, we predicted haplotypes using [HapCUT2](https://github.com/vibansal/HapCUT2):
+
+```extractHAIRS --indels 1 --bam TUMOR_SAMPLE_NAME.realigned.cleaned.bam --VCF MERGED_VCF --out FRAGMENT_FILE```
+
+```HAPCUT2 --fragments FRAGMENT_FILE --vcf MERGED_VCF --output HAPLOTYPES```
+
+Finally, we prepared our haplotype predictions for `neoepiscope` neoepitope prediction using `neoepiscope`:
+
+```neoepiscope prep -v MERGED_VCF -c HAPLOTYPES -o PREPPED_HAPLOTYPES```
+
+**Neoepitope prediction**
+
+We predicted neoepitopes of 8-24 amino acids in length with `neoepiscope`:
+
+```neoepiscope call -b hg19 -c PREPPED_HAPLOTYPES -o OUTPUT_FILE -k 8,24```
+
 **MORE COMING SOON**
 
 ----
