@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p /PATH/TO/OUTPUT_DIRECTORY/TUMOR_SAMPLE_NAME/tmp
+mkdir -p /PATH/TO/OUTPUT_DIRECTORY/TUMOR_SAMPLE_NAME/cache
+
+
+cwltool \
+--outdir /PATH/TO/OUTPUT_DIRECTORY/TUMOR_SAMPLE_NAME \
+--tmpdir-prefix /PATH/TO/OUTPUT_DIRECTORY/TUMOR_SAMPLE_NAME/tmp \
+--cachedir //PATH/TO/OUTPUT_DIRECTORY/TUMOR_SAMPLE_NAME/cache \
+/PATH/TO/WORKING_DIRECTORY/fastq2bam.cwl.yaml \
+/PATH/TO/sample_fastq2variants.json
