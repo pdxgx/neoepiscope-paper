@@ -300,7 +300,7 @@ Mel5.peptide\_overlap.out, Mel8.peptide\_overlap.out, Mel12.peptide\_overlap.out
 References:
 -----
 
-1. Wood M, Nguyen A, Struck A, Ellrott K, Nellore A, Thompson F. neoepiscope improves neoepitope prediction with multi-variant phasing. Preprint.
+1. Wood MA, Nguyen A, Struck A, Ellrott K, Nellore A, Thompson RF. neoepiscope improves neoepitope prediction with multi-variant phasing. Preprint.
 
 2. Bassani-Sternberg M, Bräunlein E, Klar R, Engleitner T, Sinitcyn P, Audehm S, et al. [Direct identification of clinically relevant neoepitopes presented on native human melanoma tissue by mass spectrometry](https://www.nature.com/articles/ncomms13404). Nat Commun. 2016;7: 13404.
 
