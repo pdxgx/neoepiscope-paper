@@ -73,6 +73,12 @@ We ran our benchmarking on an exclusive node of our institution's computer clust
 
 **1) Benchmark BWA performance for tumor and normal samples:**
 
+_SCRIPTS:_
+
+[benchmark_bwa.sh](benchmark_bwa.sh)
+
+_COMMANDS:_
+
 ```taskset -c 0,1,2,3 ./benchmark_bwa.sh HOME_DIRECTORY Mel5_tumor TUMOR_FASTQ1 TUMOR_FASTQ2 REFERENCE_FASTA BWA SAMTOOLS```
 
 ```taskset -c 0,1,2,3 ./benchmark_bwa.sh HOME_DIRECTORY Mel5_normal NORMAL_FASTQ1 NORMAL_FASTQ2 REFERENCE_FASTA BWA SAMTOOLS```
@@ -98,6 +104,14 @@ Run time info is output in Mel5\_tumor.bwa.time_log and Mel5\_normal.bwa.time\_l
 ----
 
 **2) Benchmark BAM processing for tumor and normal samples**
+
+_SCRIPTS:_
+
+[benchmark_markduplicates.sh](benchmark_markduplicates.sh)
+
+[benchmark_baserecalibration.sh](benchmark_baserecalibration.sh)
+
+_COMMANDS:_
 
 ```taskset -c 0,1,2,3 ./benchmark_markduplicates.sh HOME_DIRECTORY Mel5_tumor GATK```
 
@@ -129,6 +143,14 @@ Run time info is output in Mel5\_tumor.markduplicates.time\_log, Mel5\_normal.ma
 
 **3) Benchmark somatic variant calling**
 
+_SCRIPTS:_
+
+[benchmark_mutect.sh](benchmark_mutect.sh)
+
+[benchmark_filter_mutect.sh](benchmark_filter_mutect.sh)
+
+_COMMANDS:_
+
 ```taskset -c 0,1,2,3 ./benchmark_mutect.sh HOME_DIRECTORY Mel5_tumor Mel5_normal REFERENCE_FASTA DBSNP GATK```
 
 ```taskset -c 0,1,2,3 ./benchmark_filter_mutect.sh HOME_DIRECTORY Mel5_tumor Mel5_normal```
@@ -153,6 +175,12 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.mutect.time\_log, Mel5\_
 
 **4) Benchmark germline variant calling**
 
+_SCRIPTS:_
+
+[benchmark_haplotypecaller.sh](benchmark_haplotypecaller.sh)
+
+_COMMANDS:_
+
 ```taskset -c 0,1,2,3 ./benchmark_haplotypecaller.sh HOME_DIRECTORY Mel5_normal REFERENCE_FASTA DBSNP GATK```
 
 _INPUTS:_
@@ -175,6 +203,14 @@ Run time info is output in Mel5\_normal.haplotypecaller.time\_log
 
 **5) Benchmark haplotype phasing**
 
+_SCRIPTS:_
+
+[benchmark_hapcut2.sh](benchmark_hapcut2.sh)
+
+[benchmark_nogermline_hapcut2.sh](benchmark_nogermline_hapcut2.sh)
+
+_COMMANDS:_
+
 ```taskset -c 0,1,2,3 ./benchmark_hapcut2.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HAPCUT2```
 
 ```taskset -c 0,1,2,3 ./benchmark_nogermline_hapcut2.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HAPCUT2```
@@ -194,6 +230,12 @@ Run time info is output in Mel5\_tumor\_v\_Mel5\_normal.hapcut2.time\_log and Me
 ----
 
 **6) Benchmark HLA typing**
+
+_SCRIPTS:_
+
+[benchmark_optitype.sh](benchmark_optitype.sh)
+
+_COMMANDS:_
 
 ```taskset -c 0,1,2,3 ./benchmark_optitype.sh HOME_DIRECTORY Mel5_tumor TUMOR_FASTQ1 TUMOR_FASTQ2 OPTITYPE CONFIG```
 
@@ -217,6 +259,14 @@ Run time info is output in Mel5\_tumor.optitype.time\_log
 
 **7) Benchmark pVACseq**
 
+_SCRIPTS:_
+
+[benchmark_vep.sh](benchmark_vep.sh)
+
+[benchmark_pvacseq.sh](benchmark_pvacseq.sh)
+
+_COMMANDS:_
+
 ```taskset -c 0,1,2,3 ./benchmark_vep.sh HOME_DIRECTORY Mel5_tumor Mel5_normal VEP_DIRECTORY```
 
 ```taskset -c 0,1,2,3 ./benchmark_pvacseq.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A*01:01,HLA-B*08:01,HLA-C*07:01```
@@ -239,6 +289,12 @@ pVACseq neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.final.tsv
 
 **8) Benchmark MuPeXI**
 
+_SCRIPTS:_
+
+[benchmark_mupexi.sh](benchmark_mupexi.sh)
+
+_COMMANDS:_
+
 ```taskset -c 0,1,2,3 ./benchmark_mupexi.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A01:01,HLA-B08:01,HLA-C07:01 MUPEXI```
 
 _INPUTS:_
@@ -258,6 +314,16 @@ MuPeXI neoepitopes are output in Mel5\_tumor\_v\_Mel5\_normal.mupexi
 ----
 
 **9) Benchmark neoepiscope**
+
+_SCRIPTS_:
+
+[benchmark_neoepiscope.sh](benchmark_neoepiscope.sh)
+
+[benchmark_nogermline_neoepiscope.sh](benchmark_nogermline_neoepiscope.sh)
+
+[benchmark_comprehensive_neoepiscope.sh](benchmark_comprehensive_neoepiscope.sh)
+
+_COMMANDS_:
 
 ```taskset -c 0,1,2,3 ./benchmark_neoepiscope.sh HOME_DIRECTORY Mel5_tumor Mel5_normal HLA-A*01:01,HLA-B*08:01,HLA-C*07:01```
 
@@ -297,10 +363,44 @@ Mel5.peptide\_overlap.out, Mel8.peptide\_overlap.out, Mel12.peptide\_overlap.out
 
 ----
 
+Reproducing Variant Identification and Phasing
+-----
+
+**Data availability**
+
+We used paired tumor-normal WES data of melanoma patients from Carreno et al., Gao et al., Hugo et al., Roh et al., Snyder et al., Van Allen et al., and Zaretsky et al. (3-9); NSCLC patients from Rizvi et al. (10); and colon, endometrial, and thyroid cancer patients from Le et al. [11].
+
+**Read alignment and BAM processing**
+
+We aligned WES reads to the GRCh37d5 genome using the [Sanger cgpmap workflow](https://github.com/cancerit/dockstore-cgpmap). The relevant reference bundle is available [here](https://github.com/cancerit/dockstore-cgpwxs/wiki) (see "Reference bundle"), and the necessary variant files can be found in the [Broad Institute Resource Bundle](https://software.broadinstitute.org/gatk/download/bundle).
+
+The file [fastq2bam.cwl.yaml](fastq2bam.cwl.yaml) can be used with [sample_fastq2bam.sh](sample_fastq2bam.sh) and [sample_fastq2bam.json](sample_fastq2bam.json) to run the workflow. In the sample shell script and json file, change the paths to match the relevant paths for your computer.
+
+**MORE COMING SOON**
+
+----
+
 References:
 -----
 
-1. Wood MA, Nguyen A, Struck A, Ellrott K, Nellore A, Thompson RF. neoepiscope improves neoepitope prediction with multi-variant phasing. Preprint.
+1. Wood MA, Nguyen A, Struck AJ, Ellrott K, Nellore A, Thompson RF. neoepiscope improves neoepitope prediction with multi-variant phasing. Preprint.
 
 2. Bassani-Sternberg M, Bräunlein E, Klar R, Engleitner T, Sinitcyn P, Audehm S, et al. [Direct identification of clinically relevant neoepitopes presented on native human melanoma tissue by mass spectrometry](https://www.nature.com/articles/ncomms13404). Nat Commun. 2016;7: 13404.
 
+3. Carreno BM, Magrini V, Becker-Hapak M, Kaabinejadian S, Hundal J, Petti AA, et al. A dendritic cell vaccine increases the breadth and diversity of melanoma neoantigen-specific T cells. Science. 2015;348: 803–808.
+
+4. Gao J, Shi LZ, Zhao H, Chen J, Xiong L, He Q, et al. Loss of IFN-γ Pathway Genes in Tumor Cells as a Mechanism of Resistance to Anti-CTLA-4 Therapy. Cell. 2016;167: 397–404.e9.
+
+5. Hugo W, Zaretsky JM, Sun L, Song C, Moreno BH, Hu-Lieskovan S, et al. Genomic and Transcriptomic Features of Response to Anti-PD-1 Therapy in Metastatic Melanoma. Cell. 2017;168: 542.
+
+6. Roh W, Chen P-L, Reuben A, Spencer CN, Prieto PA, Miller JP, et al. Integrated molecular analysis of tumor biopsies on sequential CTLA-4 and PD-1 blockade reveals markers of response and resistance. Sci Transl Med. 2017;9.
+
+7. Snyder A, Makarov V, Merghoub T, Yuan J, Zaretsky JM, Desrichard A, et al. Genetic basis for clinical response to CTLA-4 blockade in melanoma. N Engl J Med. 2014;371: 2189–2199.
+
+8. Van Allen EM, Miao D, Schilling B, Shukla SA, Blank C, Zimmer L, et al. Genomic correlates of response to CTLA-4 blockade in metastatic melanoma. Science. 2015;350: 207–211.
+
+9. Zaretsky JM, Garcia-Diaz A, Shin DS, Escuin-Ordinas H, Hugo W, Hu-Lieskovan S, et al. Mutations Associated with Acquired Resistance to PD-1 Blockade in Melanoma. N Engl J Med. 2016;375: 819–829.
+
+10. Rizvi NA, Hellmann MD, Snyder A, Kvistborg P, Makarov V, Havel JJ, et al. Cancer immunology. Mutational landscape determines sensitivity to PD-1 blockade in non-small cell lung cancer. Science. 2015;348: 124–128.
+
+11. Le DT, Durham JN, Smith KN, Wang H, Bartlett BR, Aulakh LK, et al. Mismatch repair deficiency predicts response of solid tumors to PD-1 blockade. Science. 2017;357: 409–413.
