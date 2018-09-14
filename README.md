@@ -363,7 +363,7 @@ Mel5.peptide\_overlap.out, Mel8.peptide\_overlap.out, Mel12.peptide\_overlap.out
 
 ----
 
-Reproducing Variant Identification and Phasing
+Identifying phased variants (Variant identification and phasing section of MATERIALS AND METHODS)
 -----
 
 **Data availability**
@@ -372,9 +372,59 @@ We used paired tumor-normal WES data of melanoma patients from Carreno et al., G
 
 **Read alignment and BAM processing**
 
-We aligned WES reads to the GRCh37d5 genome using the [Sanger cgpmap workflow](https://github.com/cancerit/dockstore-cgpmap). The relevant reference bundle is available [here](https://github.com/cancerit/dockstore-cgpwxs/wiki) (see "Reference bundle"), and the necessary variant files can be found in the [Broad Institute Resource Bundle](https://software.broadinstitute.org/gatk/download/bundle).
+We aligned WES reads to the GRCh37d5 genome and generated genome-coordinate sorted alignments with duplicates marked using the [Sanger cgpmap workflow](https://github.com/cancerit/dockstore-cgpmap) (commit 0bacb0bee2e5c04b268c629d589ff1c551d34745). We realigned around indels and perform base recalibration using [gatk-cocleaning-tool](https://github.com/OpenGenomics/gatk-cocleaning-tool) (commit d2bafc23221f6a8dceedd45a534163e0e1bf5c68). The relevant reference bundle is available [here](https://github.com/cancerit/dockstore-cgpwxs/wiki) (see "Reference bundle"), and the necessary variant files can be found in the [Broad Institute Resource Bundle](https://software.broadinstitute.org/gatk/download/bundle).
 
 The file [fastq2bam.cwl.yaml](fastq2bam.cwl.yaml) can be used with [sample_fastq2bam.sh](sample_fastq2bam.sh) and [sample_fastq2bam.json](sample_fastq2bam.json) to run the workflow. In the sample shell script and json file, change the paths to match the relevant paths for your computer.
+
+**Somatic variant calling**
+
+We used the [mc3 workflow](https://github.com/OpenGenomics/mc3) to call somatic variants. The relevant reference bundle is available [here](https://github.com/cancerit/dockstore-cgpwxs/wiki) (see "Reference bundle"), and the necessary variant files can be found in the [Broad Institute Resource Bundle](https://software.broadinstitute.org/gatk/download/bundle).
+
+The file [mc3_variant.cwl](https://github.com/OpenGenomics/mc3/blob/master/mc3_variant.cwl) (commit 72a24b55544e3011ede1c46b13d531a7d05ef4e0) can be used with [sample_bam2variants.sh](sample_bam2variants.sh) and [sample_bam2variants.json](sample_bam2variants.json) to run the workflow. In the sample shell script and json file, change the paths to match the relevant paths for your computer.
+
+**Somatic variant processing/consensus calling**
+
+Following variant calling with mc3, we processed VCFs produced by MuSE, MuTect, Pindel, RADIA, SomaticSniper, and VarScan2 using [vt](https://genome.sph.umich.edu/wiki/Vt):
+
+First, we normalized each VCF:
+
+```vt normalize INPUT_VCF -n -r /PATH/TO/core_ref_GRCh37d5/genome.fa -o OUTPUT_VCF```
+
+Then we decomposed block substitutions:
+
+```vt decompose_blocksub -a -p INPUT_VCF -o OUTPUT_VCF```
+
+Then we decomposed multi-allelic variants:
+
+```vt decompose -s INPUT_VCF -o OUTPUT_VCF```
+
+Then we sorted variants:
+
+```vt sort INPUT_VCF -o OUTPUT_VCF```
+
+Then we took uniq variants:
+
+```vt uniq INPUT_VCF -o OUTPUT_VCF```
+
+After processing VCFs with vt, we ran [VCF_parse.py](VCF_parse.py) to produce a consensus call set of variants produced by at least 2 callers (or called by Pindel and overlapping at least one other variant):
+
+```python2.7 VCF_parse.py -v MuSE.uniq.vcf,MuTect.uniq.vcf,Pindel.uniq.vcf,RADIA.uniq.vcf,SomaticSniper.uniq.vcf,VarScan2.uniq.vcf -c MuSE,MuTect,Pindel,RADIA,SomaticSniper,VarScan2 -o /PATH/TO/OUTPUT_DIRECTORY -n 2 -s SAMPLE_NAME```
+
+This outputs a file called `SAMPLE_NAME.consensus.vcf` in the `OUTPUT_DIRECTORY` used for downstream analyses.
+
+**Germline variant calling and processing**
+
+We used [GATK v3.7](https://software.broadinstitute.org/gatk/download/auth?package=GATK-archive&version=3.7-0-gcfedb67) to run HaplotypeCaller for calling germline variants, and to run VariantFiltration for filtering the results of HaplotypeCaller. The relevant reference bundle is available [here](https://github.com/cancerit/dockstore-cgpwxs/wiki) (see "Reference bundle"), and the necessary variant files can be found in the [Broad Institute Resource Bundle](https://software.broadinstitute.org/gatk/download/bundle).
+
+HaplotypeCaller was run using default options:
+
+```java -jar GenomeAnalysisTK.jar -R /PATH/TO/core_ref_GRCh37d5/genome.fa -T HaplotypeCaller -I /PATH/TO/NORMAL.realigned.cleaned.bam -o /PATH/TO/germline.vcf```
+
+VariantFiltration was run as below:
+
+```java -jar GenomeAnalysisTK.jar -R /PATH/TO/core_ref_GRCh37d5/genome.fa -T VariantFiltration --variant /PATH/TO/germline.vcf -o /PATH/TO/germline.filtered.vcf --clusterSize 3 --clusterWindowSize 15 --missingValuesInExpressionsShouldEvaluateAsFailing --filterName 'QDFilter' --filterExpression 'QD < 2.0' --filterName 'QUALFilter' --filterExpression 'QUAL < 100.0' --filterName DPFilter --filterExpression 'DP < 10.0'```
+
+Only variants passing all filters were retained for downstream analyses.
 
 **MORE COMING SOON**
 
