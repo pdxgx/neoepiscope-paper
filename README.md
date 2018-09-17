@@ -368,7 +368,7 @@ Identifying phased variants (Variant identification and phasing section of MATER
 
 **Data availability**
 
-We used paired tumor-normal WES data of melanoma patients from Carreno et al., Gao et al., Hugo et al., Roh et al., Snyder et al., Van Allen et al., and Zaretsky et al. (3-9); NSCLC patients from Rizvi et al. (10); and colon, endometrial, and thyroid cancer patients from Le et al. [11].
+We used paired tumor-normal WES data of melanoma patients from Carreno et al., Gao et al., Hugo et al., Roh et al., Snyder et al., Van Allen et al., and Zaretsky et al. (3-9); NSCLC patients from Rizvi et al. (10); and colon, endometrial, and thyroid cancer patients from Le et al. [11]. 
 
 **Read alignment and BAM processing**
 
@@ -450,7 +450,17 @@ We predicted neoepitopes of 8-24 amino acids in length with `neoepiscope`:
 
 ```neoepiscope call -b hg19 -c PREPPED_HAPLOTYPES -o OUTPUT_FILE -k 8,24```
 
-**MORE COMING SOON**
+**Phasing prevalence**
+
+We used a combination of two scripts to analyze phasing. First, we ran [phasing_analysis.py](phasing_analysis.py) to identify instances of variant phasing within 33 or 72 bp across all patients and tumors:
+
+```python phasing_analysis.py -o OUTPUT_DIR -n NEOEPISCOPE_DATA_DIR -c HAPLOTYPE_DIR -d 33```
+
+```python phasing_analysis.py -o OUTPUT_DIR -n NEOEPISCOPE_DATA_DIR -c HAPLOTYPE_DIR -d 72```
+
+The HAPLOTYPE_DIR is the directory containing the prepped haplotype files from HapCUT2/`neoepiscope merge` used to predict neoepitopes. For consistency with the script, the naming convention on these files should be `PATIENT_ID.TUMOR_SAMPLE_ID.hapcut.out.prepped`. The NEOEPISCOPE_DATA_DIR is the directory into which `neoepiscope download` saves it's data - make sure that you have run the downloader and selected 'yes' to download the hg19 GTF and bowtie index files.
+
+To produce summary statistics and figures, we used the R script [phasing_stats.R](phasing_stats.R).
 
 ----
 
