@@ -1,7 +1,7 @@
 Reproducing results from neoepiscope paper
 -----
 
-This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/ohsu-comp-bio/neoepiscope) as described in our [manuscript]().
+This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/ohsu-comp-bio/neoepiscope) as described in our [manuscript](https://www.biorxiv.org/content/early/2018/09/14/418129).
 
 ----
 
@@ -467,24 +467,24 @@ To produce summary statistics and figures, we used the R script [phasing_stats.R
 References:
 -----
 
-1. Wood MA, Nguyen A, Struck AJ, Ellrott K, Nellore A, Thompson RF. neoepiscope improves neoepitope prediction with multi-variant phasing. Preprint.
+1. Wood MA, Nguyen A, Struck AJ, Ellrott K, Nellore A, Thompson RF. [neoepiscope improves neoepitope prediction with multi-variant phasing](https://www.biorxiv.org/content/early/2018/09/14/418129). Preprint.
 
 2. Bassani-Sternberg M, Bräunlein E, Klar R, Engleitner T, Sinitcyn P, Audehm S, et al. [Direct identification of clinically relevant neoepitopes presented on native human melanoma tissue by mass spectrometry](https://www.nature.com/articles/ncomms13404). Nat Commun. 2016;7: 13404.
 
-3. Carreno BM, Magrini V, Becker-Hapak M, Kaabinejadian S, Hundal J, Petti AA, et al. A dendritic cell vaccine increases the breadth and diversity of melanoma neoantigen-specific T cells. Science. 2015;348: 803–808.
+3. Carreno BM, Magrini V, Becker-Hapak M, Kaabinejadian S, Hundal J, Petti AA, et al. [A dendritic cell vaccine increases the breadth and diversity of melanoma neoantigen-specific T cells](http://science.sciencemag.org/content/348/6236/803). Science. 2015;348: 803–808.
 
-4. Gao J, Shi LZ, Zhao H, Chen J, Xiong L, He Q, et al. Loss of IFN-γ Pathway Genes in Tumor Cells as a Mechanism of Resistance to Anti-CTLA-4 Therapy. Cell. 2016;167: 397–404.e9.
+4. Gao J, Shi LZ, Zhao H, Chen J, Xiong L, He Q, et al. [Loss of IFN-γ Pathway Genes in Tumor Cells as a Mechanism of Resistance to Anti-CTLA-4 Therapy](https://www.sciencedirect.com/science/article/pii/S0092867416311679?via%3Dihub). Cell. 2016;167: 397–404.e9.
 
-5. Hugo W, Zaretsky JM, Sun L, Song C, Moreno BH, Hu-Lieskovan S, et al. Genomic and Transcriptomic Features of Response to Anti-PD-1 Therapy in Metastatic Melanoma. Cell. 2017;168: 542.
+5. Hugo W, Zaretsky JM, Sun L, Song C, Moreno BH, Hu-Lieskovan S, et al. [Genomic and Transcriptomic Features of Response to Anti-PD-1 Therapy in Metastatic Melanoma](https://www.sciencedirect.com/science/article/pii/S009286741630215X?via%3Dihub). Cell. 2017;168: 542.
 
-6. Roh W, Chen P-L, Reuben A, Spencer CN, Prieto PA, Miller JP, et al. Integrated molecular analysis of tumor biopsies on sequential CTLA-4 and PD-1 blockade reveals markers of response and resistance. Sci Transl Med. 2017;9.
+6. Roh W, Chen P-L, Reuben A, Spencer CN, Prieto PA, Miller JP, et al. [Integrated molecular analysis of tumor biopsies on sequential CTLA-4 and PD-1 blockade reveals markers of response and resistance](http://stm.sciencemag.org/content/9/379/eaah3560.short). Sci Transl Med. 2017;9.
 
-7. Snyder A, Makarov V, Merghoub T, Yuan J, Zaretsky JM, Desrichard A, et al. Genetic basis for clinical response to CTLA-4 blockade in melanoma. N Engl J Med. 2014;371: 2189–2199.
+7. Snyder A, Makarov V, Merghoub T, Yuan J, Zaretsky JM, Desrichard A, et al. [Genetic basis for clinical response to CTLA-4 blockade in melanoma](https://www.nejm.org/doi/full/10.1056/NEJMoa1406498). N Engl J Med. 2014;371: 2189–2199.
 
-8. Van Allen EM, Miao D, Schilling B, Shukla SA, Blank C, Zimmer L, et al. Genomic correlates of response to CTLA-4 blockade in metastatic melanoma. Science. 2015;350: 207–211.
+8. Van Allen EM, Miao D, Schilling B, Shukla SA, Blank C, Zimmer L, et al. [Genomic correlates of response to CTLA-4 blockade in metastatic melanoma](http://science.sciencemag.org/content/350/6257/207.long). Science. 2015;350: 207–211.
 
-9. Zaretsky JM, Garcia-Diaz A, Shin DS, Escuin-Ordinas H, Hugo W, Hu-Lieskovan S, et al. Mutations Associated with Acquired Resistance to PD-1 Blockade in Melanoma. N Engl J Med. 2016;375: 819–829.
+9. Zaretsky JM, Garcia-Diaz A, Shin DS, Escuin-Ordinas H, Hugo W, Hu-Lieskovan S, et al. [Mutations Associated with Acquired Resistance to PD-1 Blockade in Melanoma](https://www.nejm.org/doi/full/10.1056/NEJMoa1604958). N Engl J Med. 2016;375: 819–829.
 
-10. Rizvi NA, Hellmann MD, Snyder A, Kvistborg P, Makarov V, Havel JJ, et al. Cancer immunology. Mutational landscape determines sensitivity to PD-1 blockade in non-small cell lung cancer. Science. 2015;348: 124–128.
+10. Rizvi NA, Hellmann MD, Snyder A, Kvistborg P, Makarov V, Havel JJ, et al. Cancer immunology. [Mutational landscape determines sensitivity to PD-1 blockade in non-small cell lung cancer](http://science.sciencemag.org/content/348/6230/124.long). Science. 2015;348: 124–128.
 
-11. Le DT, Durham JN, Smith KN, Wang H, Bartlett BR, Aulakh LK, et al. Mismatch repair deficiency predicts response of solid tumors to PD-1 blockade. Science. 2017;357: 409–413.
+11. Le DT, Durham JN, Smith KN, Wang H, Bartlett BR, Aulakh LK, et al. [Mismatch repair deficiency predicts response of solid tumors to PD-1 blockade](http://science.sciencemag.org/content/357/6349/409.long). Science. 2017;357: 409–413.
