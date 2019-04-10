@@ -10,7 +10,9 @@ parser.add_argument('-d', '--directory', type=str, required=True,
 benchmark_dir = args.directory
 patients = {'Mel5': 'Mel5_tumor_v_Mel5_normal', 
 			'Mel8': 'Mel8_tumor_v_Mel8_normal', 
-			'Mel12': 'Mel12_tumor_v_Mel12_normal'}
+			'Mel12': 'Mel12_tumor_v_Mel12_normal',
+			'Mel15': 'Mel15_tumor_v_Mel15_normal',
+			'Mel16': 'Mel16_tumor_v_Mel16_normal'}
 
 peptides = {}
 
@@ -37,7 +39,7 @@ for pat in patients:
 				peptides[pat][neoepitope] = [0, 1, 0, 0, 0]
 			else:
 				peptides[pat][neoepitope][1] = 1
-	# Parse neoepiscope tumor+germline data
+	# Parse neoepiscope data
 	neoepiscope_file = ''.join([benchmark_dir, patients[pat], 
 								'.neoepiscope.out'])
 	with open(neoepiscope_file, 'r') as f:
@@ -49,26 +51,35 @@ for pat in patients:
 				peptides[pat][neoepitope] = [0, 0, 1, 0, 0]
 			else:
 				peptides[pat][neoepitope][2] = 1
-	# Parse neoepiscope tumor-only data
-	neoepiscope_file = ''.join([benchmark_dir, patients[pat], 
-								'.neoepiscope.tumor.out'])
-	with open(neoepiscope_file, 'r') as f:
-		f.readline()
+	# Parse NeoPredPipe data
+	neopredpipe_file = ''.join([benchmark_dir, patients[pat], 
+								'.neoantigens.unfiltered.txt'])
+	with open(neopredpipe_file, 'r') as f:
 		for line in f:
 			tokens = line.strip('\n').split('\t')
-			neoepitope = tokens[0]
+			neoepitope = tokens[9]
 			if neoepitope not in peptides[pat]:
 				peptides[pat][neoepitope] = [0, 0, 0, 1, 0]
 			else:
 				peptides[pat][neoepitope][3] = 1
-	# Parse neoepiscope NMD data
-	neoepiscope_file = ''.join([benchmark_dir, patients[pat], 
-								'.neoepiscope.comprehensive.out'])
-	with open(neoepiscope_file, 'r') as f:
+	neopredpipe_indel_file = ''.join([benchmark_dir, patients[pat], 
+									  '.neoantigens.Indels.unfiltered.txt'])
+	with open(neopredpipe_indel_file, 'r') as f:
+		for line in f:
+			tokens = line.strip('\n').split('\t')
+			neoepitope = tokens[9]
+			if neoepitope not in peptides[pat]:
+				peptides[pat][neoepitope] = [0, 0, 0, 1, 0]
+			else:
+				peptides[pat][neoepitope][3] = 1
+	# Parse TSNAD data
+	tsnad_file = ''.join([benchmark_dir, pat, 
+						  '_tsnad/predicted_neoantigen.txt'])
+	with open(tsnad_file, 'r') as f:
 		f.readline()
 		for line in f:
 			tokens = line.strip('\n').split('\t')
-			neoepitope = tokens[0]
+			neoepitope = tokens[7]
 			if neoepitope not in peptides[pat]:
 				peptides[pat][neoepitope] = [0, 0, 0, 0, 1]
 			else:
@@ -76,9 +87,8 @@ for pat in patients:
 	# Write output
 	output_file = ''.join([benchmark_dir, pat, '.peptide_overlap.out'])
 	with open(output_file, 'w') as f:
-		f.write('\t'.join(['Peptide', 'pVAC_Seq', 'MuPeXI', 'neoepiscope_all', 
-						   'neoepiscope_tumor', 
-						   'neoepiscope_comprehensive']) + '\n')
+		f.write('\t'.join(['Peptide', 'pVAC_Seq', 'MuPeXI', 'neoepiscope', 
+						   'NeoPredPipe', 'TSNAD']) + '\n')
 		for pep in peptides[pat]:
 			outline = [pep]
 			for i in range(0,5):
@@ -87,9 +97,8 @@ for pat in patients:
 
 output_file = ''.join([benchmark_dir, 'combined.peptide_overlap.out'])
 with open(other_out, 'w') as f:
-	f.write('\t'.join(['Peptide', 'pVAC_Seq', 'MuPeXI', 'neoepiscope_all', 
-					   'neoepiscope_tumor', 
-					   'neoepiscope_comprehensive']) + '\n')
+	f.write('\t'.join(['Peptide', 'pVAC_Seq', 'MuPeXI', 'neoepiscope', 
+					   'NeoPredPipe', 'TSNAD']) + '\n')
 	combined_peps = {}
 	for pat in peptides:
 		for pep in peptides[pat]:

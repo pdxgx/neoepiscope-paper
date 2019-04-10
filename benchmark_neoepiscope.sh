@@ -31,5 +31,5 @@ echo 'NEOEPISCOPE RUN TIME' > $TIMELOG
 
 time (neoepiscope prep -v $VCF -c $HAPLOTYPES -o $PREPPED_HAPLOTYPES \
 		&& neoepiscope call -v $VCF -c $PREPPED_HAPLOTYPES -k 9 -b GRCh38 -o $OUTPUT \
-    -p netMHCpan 4 affinity,rank -a $HLA_ALLELES \
+    -p netMHCpan 4 affinity,rank -a $HLA_ALLELES --nmd --pp --trv --igv --allow-nonstart --allow-nonstop \
 	        2>&1) 2>> $TIMELOG || exit 1

@@ -1,0 +1,10 @@
+A1 01:01
+A2 01:01
+B1 08:01
+B2 08:01
+C1 07:01
+C2 07:01
+Input_file INPUT_FILE_HERE
+Outputs_folder OUTPUT_FOLDER_HERE
+netMHCpan_folder NETMHC_HERE
+peptide_length 9

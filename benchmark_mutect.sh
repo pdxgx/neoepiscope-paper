@@ -35,3 +35,7 @@ echo 'MUTECT RUN TIME' > $TIMELOG
 time (java -jar $GATK --analysis_type MuTect2 -nct 4 --input_file:tumor $TUMOR_BAM --input_file:normal $NORMAL_BAM \
     --reference_sequence $REFERENCE --dbsnp $DBSNP --out $RAW_VCF 2>&1) 2>> $TIMELOG || exit 1
 
+echo 'FILTER MUTECT RUN TIME' > $TIMELOG
+
+time (grep '^#' $RAW_VCF > $FILTERED_VCF && grep -v '^#' $RAW_VCF | awk '$7 == "PASS"' \
+		>> $FILTERED_VCF 2>&1) 2>> $TIMELOG
