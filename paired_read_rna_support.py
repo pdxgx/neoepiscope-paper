@@ -801,16 +801,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--patient_info', type=str, required=True,
                     help='patient ID info'
     )
-parser.add_argument('-s', 'star_output_dir', type=str, required=True,
+parser.add_argument('-s', '--star_output_dir', type=str, required=True,
                     help='path to directory containing STAR output subdirectories'
     )
-parser.add_argument('-c', 'hapcut2_output_dir', type=str, required=True,
+parser.add_argument('-c', '--hapcut2_output_dir', type=str, required=True,
                     help='path to directory containing HapCUT2 output'
     )
-parser.add_argument('-o', 'output_dir', type=str, required=True,
+parser.add_argument('-o', '--output_dir', type=str, required=True,
                     help='path to output directory'
     )
-parser.add_argument('-d', 'pickled_dictionary', type=str, required=True,
+parser.add_argument('-d', '--pickled_dictionary', type=str, required=True,
                     help='path to 72 bp variant_to_distance pickled dictionary'
     )
 args = parser.parse_args()

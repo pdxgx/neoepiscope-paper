@@ -1,7 +1,7 @@
 Reproducing results from neoepiscope paper
 -----
 
-This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/pdxgx/neoepiscope) as described in our [manuscript](https://www.biorxiv.org/content/early/2018/09/14/418129).
+This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/pdxgx/neoepiscope) as described in our [manuscript](https://www.biorxiv.org/content/10.1101/418129v2).
 
 ----
 
@@ -583,7 +583,7 @@ STAR_OUTPUT_DIRECTORY should be the directory containing your per-sample STAR ou
 References:
 -----
 
-1. Wood MA, Nguyen A, Struck AJ, Ellrott K, Nellore A, Thompson RF. [neoepiscope improves neoepitope prediction with multi-variant phasing](https://www.biorxiv.org/content/early/2018/09/14/418129). Preprint.
+1. Wood MA, Nguyen A, Struck AJ, Ellrott K, Nellore A, Thompson RF. [neoepiscope improves neoepitope prediction with multi-variant phasing](https://www.biorxiv.org/content/10.1101/418129v2). Preprint.
 
 2. Bassani-Sternberg M, Bräunlein E, Klar R, Engleitner T, Sinitcyn P, Audehm S, et al. [Direct identification of clinically relevant neoepitopes presented on native human melanoma tissue by mass spectrometry](https://www.nature.com/articles/ncomms13404). Nat Commun. 2016;7: 13404.
 
