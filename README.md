@@ -1,7 +1,7 @@
 Reproducing results from neoepiscope paper
 -----
 
-This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/pdxgx/neoepiscope) as described in our [manuscript](https://www.biorxiv.org/content/10.1101/418129v2).
+This repository holds scripts and instructions for reproducing the benchmarking for [neoepiscope](https://github.com/pdxgx/neoepiscope) as described in our [manuscript](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btz653/5551338).
 
 ----
 
@@ -213,13 +213,11 @@ Run time info is output in Mel5\_normal.haplotypecaller.time\_log
 
 ----
 
-**5) Benchmark haplotype phasing**
+**5) Benchmark haplotype phasing for neoepiscope**
 
 _SCRIPTS:_
 
 [benchmark_hapcut2.sh](benchmark_hapcut2.sh)
-
-[benchmark_nogermline_hapcut2.sh](benchmark_nogermline_hapcut2.sh)
 
 _COMMANDS:_
 
@@ -583,7 +581,7 @@ STAR_OUTPUT_DIRECTORY should be the directory containing your per-sample STAR ou
 References:
 -----
 
-1. Wood MA, Nguyen A, Struck AJ, Ellrott K, Nellore A, Thompson RF. [neoepiscope improves neoepitope prediction with multi-variant phasing](https://www.biorxiv.org/content/10.1101/418129v2). Preprint.
+1. Wood MA, Nguyen A, Struck AJ, Ellrott K, Nellore A, Thompson RF. [neoepiscope improves neoepitope prediction with multi-variant phasing](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btz653/5551338). Bioinformatics. 2019;btz653.
 
 2. Bassani-Sternberg M, Bräunlein E, Klar R, Engleitner T, Sinitcyn P, Audehm S, et al. [Direct identification of clinically relevant neoepitopes presented on native human melanoma tissue by mass spectrometry](https://www.nature.com/articles/ncomms13404). Nat Commun. 2016;7: 13404.
 
