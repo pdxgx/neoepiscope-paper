@@ -480,7 +480,7 @@ Then we took uniq variants:
 
 ```vt uniq INPUT_VCF -o OUTPUT_VCF```
 
-After processing VCFs with vt, we ran [VCF_parse.py](VCF_parse.py) to produce a consensus call set of variants produced by at least 2 callers (or called by Pindel and overlapping at least one other variant):
+After processing VCFs with vt, we ran [VCF_parse.py](VCF_parse.py) to produce a consensus call set of variants produced by at least 2 callers and not overlapped by a Pindel variant, or called by Pindel:
 
 ```python2.7 VCF_parse.py -v MuSE.uniq.vcf,MuTect.uniq.vcf,Pindel.uniq.vcf,RADIA.uniq.vcf,SomaticSniper.uniq.vcf,VarScan2.uniq.vcf -c MuSE,MuTect,Pindel,RADIA,SomaticSniper,VarScan2 -o /PATH/TO/OUTPUT_DIRECTORY -n 2 -s SAMPLE_NAME```
 
